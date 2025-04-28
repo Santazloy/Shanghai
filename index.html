@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Let it Glow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+<!-- вот этот контейнер обеспечивает фон -->
+<div class="container"></div>
+
+<div class="outer">
+    <div class="dot"></div>
+    <div class="card">
+        <div class="ray"></div>
+        <div class="line topl"></div>
+        <div class="line leftl"></div>
+        <div class="line bottoml"></div>
+        <div class="line rightl"></div>
+        <div class="form-control">
+            <input id="password" type="password" required>
+            <label>
+                <span style="transition-delay:0ms">P</span>
+                <span style="transition-delay:50ms">a</span>
+                <span style="transition-delay:100ms">s</span>
+                <span style="transition-delay:150ms">s</span>
+                <span style="transition-delay:200ms">w</span>
+                <span style="transition-delay:250ms">o</span>
+                <span style="transition-delay:300ms">r</span>
+                <span style="transition-delay:350ms">d</span>
+            </label>
+        </div>
+
+        <button id="submit" style="display:none;">Enter/进入</button>
+        <p id="message"></p>
+    </div>
+</div>
+
+<script>
+    function tryLogin() {
+        const pw = document.getElementById('password').value;
+        if (pw === "8008") window.location.href = "home.html";
+        else document.getElementById('message').textContent = "Неверный пароль";
+    }
+    document.getElementById('submit').onclick = tryLogin;
+    document.getElementById('password').onkeydown = e => {
+        if (e.key === 'Enter') tryLogin();
+    };
+</script>
+</body>
+
+</html>

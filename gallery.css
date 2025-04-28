@@ -1,0 +1,200 @@
+/* ---------- глобальные переменные ---------- */
+:root {
+    --bar-height: 60px;
+    --c: 7px;
+    --p: 0 0, 6px 10.39230485px;
+    --inner-offset: 10%;
+    --gap: 0.8rem;
+    --text-size: 0.9rem;
+
+    /* размеры карты */
+    --card-w: 400px;
+    --card-h: 800px;
+    --card-min-h: 350px;
+}
+
+/* ---------- карта (.outer) ---------- */
+.outer {
+    position: relative;
+    display: inline-block;
+    width: var(--card-w);
+    height: auto;
+    min-height: var(--card-min-h);
+    padding: 1px;
+    border-radius: 10px;
+    background: radial-gradient(circle 230px at 0 0, #fff, #0c0d0d);
+    background-color: #000;
+    animation: wee 40s linear infinite;
+    overflow: hidden;
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: 2 / 3;
+}
+
+/* ---------- фон ---------- */
+.container {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    background-image:
+            radial-gradient(circle at 50% 50%, #0000 1.5px, #000 0 var(--c), #0000 var(--c)),
+            radial-gradient(circle at 50% 50%, #0000 1.5px, #000 0 var(--c), #0000 var(--c)),
+            radial-gradient(circle at 50% 50%, #f00, #f000 60%),
+            radial-gradient(circle at 50% 50%, #ff0, #ff00 60%),
+            radial-gradient(circle at 50% 50%, #0f0, #0f00 60%),
+            radial-gradient(ellipse at 50% 50%, #00f, #00f0 60%);
+    background-size: 12px 20.78px, 12px 20.78px, 200% 200%, 200% 200%, 200% 200%, 200% 20.78px;
+    background-position: var(--p), 0 0, 0 0, 0 0, 0 0, 0 0;
+    animation: wee 40s linear infinite, filt 6s linear infinite;
+    z-index: 0;
+}
+
+@keyframes filt {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+@keyframes wee {
+    0% {
+        background-position: var(--p), 800% 400%, 1000% -400%, -1200% -600%, 400% 41.5px, 0 0;
+    }
+    100% {
+        background-position: var(--p), 0 0, 0 0, 0 0, 0 0, 0 0;
+    }
+}
+
+/* ---------- линии ---------- */
+.outer .line {
+    position: absolute;
+    background: #555;
+    z-index: 2;
+}
+
+.outer .topl {
+    top: var(--inner-offset);
+    left: 0;
+    right: 0;
+    height: 1px;
+}
+
+.outer .bottoml {
+    bottom: var(--inner-offset);
+    left: 0;
+    right: 0;
+    height: 1px;
+}
+
+.outer .leftl {
+    left: var(--inner-offset);
+    top: 0;
+    bottom: 0;
+    width: 1px;
+}
+
+.outer .rightl {
+    right: var(--inner-offset);
+    top: 0;
+    bottom: 0;
+    width: 1px;
+}
+
+/* ---------- точка анимация ---------- */
+.dot {
+    width: 5px;
+    aspect-ratio: 1;
+    position: absolute;
+    background: #fff;
+    box-shadow: 0 0 10px #fff;
+    border-radius: 50%;
+    z-index: 3;
+    animation: moveDot 6s linear infinite;
+}
+
+@keyframes moveDot {
+    0% {
+        top: var(--inner-offset);
+        left: var(--inner-offset);
+    }
+    25% {
+        top: var(--inner-offset);
+        left: calc(100% - var(--inner-offset) - 5px);
+    }
+    50% {
+        top: calc(100% - var(--inner-offset) - 5px);
+        left: calc(100% - var(--inner-offset) - 5px);
+    }
+    75% {
+        top: calc(100% - var(--inner-offset) - 5px);
+        left: var(--inner-offset);
+    }
+    100% {
+        top: var(--inner-offset);
+        left: var(--inner-offset);
+    }
+}
+
+/* ---------- содержимое (.card) ---------- */
+.outer .card {
+    position: absolute;
+    inset: var(--inner-offset);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    padding: 1rem;
+    background: radial-gradient(circle 280px at 0 0, #444, #0c0d0d);
+    border: 1px solid #202222;
+    border-radius: 6px;
+    font-size: var(--text-size);
+    color: #fff;
+    text-align: center;
+    z-index: 1;
+}
+
+.outer .card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    flex: 1 1 auto;
+    border-radius: 4px;
+}
+
+/* ---------- адаптация ---------- */
+@media (max-width: 600px) {
+    .home-wrapper {
+        flex-direction: column;
+        gap: 1.5rem;
+        padding: 1rem;
+    }
+
+    .outer {
+        width: 90vw;
+        height: calc(90vw * 2);
+        max-width: 90vw;
+        max-height: calc(90vw * 2);
+    }
+}
+
+/* ---------- верхний и нижний бары ---------- */
+.bar {
+    position: fixed;
+    left: 0;
+    right: 0;
+    height: var(--bar-height);
+    background: radial-gradient(circle 230px at 0 0, #fff, #0c0d0d);
+    z-index: 3;
+}
+
+.top-bar {
+    top: 0;
+    z-index: 4;
+}
+
+.bottom-bar {
+    bottom: 0;
+    z-index: 4;
+}
