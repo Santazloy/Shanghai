@@ -1,13 +1,24 @@
-# зависимости npm
+# Зависимости Node.js
 node_modules/
 
-# зависимости Replit (Unity-style UPM)
-.upm/
-
-# локальные переменные окружения
-.env
-
-# логи npm/yarn
+# Логи
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
+
+# Файлы окружения
+.env
+
+# Конфиг Replit
+.replit
+
+# Каталоги/файлы IDE и ОС
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Вывод сборки (если появится)
+dist/
+coverage/
