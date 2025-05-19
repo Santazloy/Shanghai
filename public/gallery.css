@@ -1,0 +1,179 @@
+:root {
+    --bar-height: 60px;
+    --c: 7px;
+    --p: 0 0, 6px 10.39230485px;
+    --inner-offset: 10%;
+    --gap: 0.8rem;
+    --text-size: 0.9rem;
+
+    --card-w: 400px;
+    --card-h: 800px;
+    --card-min-h: 350px;
+}
+
+/* Галерея - контейнер для карточек */
+.gallery {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin: 80px auto; /* небольшой отступ сверху, чтобы не налезало на бар */
+    max-width: 1200px; /* при желании ограничить ширину */
+}
+
+/* Фон экрана (.container) */
+.container {
+    position: fixed;
+    inset: 0;
+    background: #000;
+    background-image:
+        radial-gradient(circle at 50% 50%, #0000 1.5px, #000 0 var(--c), #0000 var(--c)),
+        radial-gradient(circle at 50% 50%, #0000 1.5px, #000 0 var(--c), #0000 var(--c)),
+        radial-gradient(circle at 50% 50%, #f00, #f000 60%),
+        radial-gradient(circle at 50% 50%, #ff0, #ff00 60%),
+        radial-gradient(circle at 50% 50%, #0f0, #0f00 60%),
+        radial-gradient(ellipse at 50% 50%, #00f, #00f0 60%);
+    background-size:
+        12px 20.78px,
+        12px 20.78px,
+        200% 200%,
+        200% 200%,
+        200% 200%,
+        200% 20.78px;
+    background-position: var(--p), 0 0, 0 0, 0 0, 0 0, 0 0;
+    animation: wee 40s linear infinite, filt 6s linear infinite;
+    z-index: 0;
+}
+
+/* Анимация оттенков */
+@keyframes filt {
+    0% {
+        filter: hue-rotate(0deg);
+    }
+    100% {
+        filter: hue-rotate(360deg);
+    }
+}
+
+/* Анимация движения фона */
+@keyframes wee {
+    0% {
+        background-position: var(--p), 800% 400%, 1000% -400%, -1200% -600%, 400% 41.5px, 0 0;
+    }
+    100% {
+        background-position: var(--p), 0 0, 0 0, 0 0, 0 0, 0 0;
+    }
+}
+
+/* Карточка (.outer) */
+.outer {
+    position: relative;
+    display: inline-block;
+    width: var(--card-w);
+    min-height: var(--card-min-h);
+    padding: 1px;
+    border-radius: 10px;
+    background: radial-gradient(circle 230px at 0 0, #fff, #0c0d0d);
+    overflow: hidden;
+    max-width: 100%;
+    max-height: 100%;
+    aspect-ratio: 2 / 3;
+    animation: wee 40s linear infinite; /* Двигаем «подсветку» */
+}
+
+/* Анимированная точка */
+.dot {
+    width: 5px;
+    aspect-ratio: 1;
+    position: absolute;
+    background: #fff;
+    box-shadow: 0 0 10px #fff;
+    border-radius: 50%;
+    z-index: 3;
+    animation: moveDot 6s linear infinite;
+}
+
+@keyframes moveDot {
+    0%, 100% {
+        top: var(--inner-offset);
+        left: var(--inner-offset);
+    }
+    25% {
+        top: var(--inner-offset);
+        left: calc(100% - var(--inner-offset) - 5px);
+    }
+    50% {
+        top: calc(100% - var(--inner-offset) - 5px);
+        left: calc(100% - var(--inner-offset) - 5px);
+    }
+    75% {
+        top: calc(100% - var(--inner-offset) - 5px);
+        left: var(--inner-offset);
+    }
+}
+
+/* 4 линии (квадрат) */
+.line {
+    position: absolute;
+    background: #555;
+    z-index: 2;
+}
+.topl {
+    top: var(--inner-offset);
+    left: var(--inner-offset);
+    width: calc(100% - 2 * var(--inner-offset) - 5px);
+    height: 1px;
+}
+.bottoml {
+    top: calc(100% - var(--inner-offset) - 5px);
+    left: var(--inner-offset);
+    width: calc(100% - 2 * var(--inner-offset) - 5px);
+    height: 1px;
+}
+.leftl {
+    top: var(--inner-offset);
+    left: var(--inner-offset);
+    height: calc(100% - 2 * var(--inner-offset) - 5px);
+    width: 1px;
+}
+.rightl {
+    top: var(--inner-offset);
+    left: calc(100% - var(--inner-offset) - 5px);
+    height: calc(100% - 2 * var(--inner-offset) - 5px);
+    width: 1px;
+}
+
+/* Внутреннее содержимое карточки (.card) */
+.outer .card {
+    position: absolute;
+    inset: var(--inner-offset);
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
+    padding: 1rem;
+    background: radial-gradient(circle 280px at 0 0, #444, #0c0d0d);
+    border: 1px solid #202222;
+    border-radius: 6px;
+    font-size: var(--text-size);
+    color: #fff;
+    z-index: 1;
+}
+
+.outer .card img,
+.outer .card video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    border-radius: 4px;
+}
+
+/* Адаптив */
+@media (max-width: 600px) {
+    .outer {
+        width: 90vw;
+        height: calc(90vw * 1.5); /* или *2, как у вас было */
+        max-width: 90vw;
+        max-height: calc(90vw * 1.5);
+    }
+}

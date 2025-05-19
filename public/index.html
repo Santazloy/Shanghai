@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Login - Let it Glow</title>
+        <link rel="stylesheet" href="style.css" />
+    </head>
+
+    <body>
+        <!-- Фон, растянутый на весь экран -->
+        <div class="container"></div>
+
+        <!-- Карточка с вводом пароля -->
+        <div class="outer">
+            <div class="dot"></div>
+            <div class="card">
+                <div class="ray"></div>
+                <!-- Линии, образующие квадрат -->
+                <div class="line topl"></div>
+                <div class="line leftl"></div>
+                <div class="line bottoml"></div>
+                <div class="line rightl"></div>
+
+                <!-- Поле ввода пароля -->
+                <div class="form-control">
+                    <input id="password" type="password" required />
+                    <label>
+                        <span style="transition-delay: 0ms">P</span>
+                        <span style="transition-delay: 50ms">a</span>
+                        <span style="transition-delay: 100ms">s</span>
+                        <span style="transition-delay: 150ms">s</span>
+                        <span style="transition-delay: 200ms">w</span>
+                        <span style="transition-delay: 250ms">o</span>
+                        <span style="transition-delay: 300ms">r</span>
+                        <span style="transition-delay: 350ms">d</span>
+                    </label>
+                </div>
+
+                <!-- SVG-фильтр, нужный для свечения линий кнопки -->
+                <svg style="position: absolute; width: 0; height: 0">
+                    <filter
+                        width="3000%"
+                        x="-1000%"
+                        height="3000%"
+                        y="-1000%"
+                        id="unopaq"
+                    >
+                        <feColorMatrix
+                            values="
+                            1 0 0 0 0 
+                            0 1 0 0 0 
+                            0 0 1 0 0 
+                            0 0 0 3 0
+                        "
+                        ></feColorMatrix>
+                    </filter>
+                </svg>
+
+                <!-- Полупрозрачная подложка для кнопки (эффект при наведении) -->
+                <div class="backdrop"></div>
+
+                <!-- КРАСИВАЯ КНОПКА -->
+                <button class="button" id="submit">
+                    <!-- "лучи" -->
+                    <div class="a l"></div>
+                    <div class="a r"></div>
+                    <div class="a t"></div>
+                    <div class="a b"></div>
+
+                    <div class="text">Enter/进入</div>
+                </button>
+
+                <!-- Сообщение об ошибке пароля -->
+                <p id="message"></p>
+            </div>
+        </div>
+
+        <script>
+            function tryLogin() {
+                const pw = document.getElementById("password").value.trim();
+                if (pw === "8008" || pw === "2323" || pw === "6699") {
+                    // Сохраняем пароль
+                    localStorage.setItem("password", pw);
+                    // Переходим на home.html (пример)
+                    window.location.href = "home.html";
+                } else {
+                    document.getElementById("message").textContent =
+                        "Неверный пароль";
+                }
+            }
+
+            // Обработка нажатия Enter при вводе пароля
+            document.getElementById("password").onkeydown = function (e) {
+                if (e.key === "Enter") {
+                    tryLogin();
+                }
+            };
+
+            // Клик по кнопке Enter
+            document.getElementById("submit").onclick = tryLogin;
+        </script>
+    </body>
+</html>
