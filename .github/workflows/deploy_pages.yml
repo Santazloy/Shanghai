@@ -20,9 +20,9 @@ jobs:
         uses: actions/configure-pages@v3
 
       - name: Upload site files  # Шаг 3: загружаем статические файлы сайта в артефакт
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: 'public/'
+          path: 'public/'  # Путь к папке с вашими статическими файлами
 
       - name: Deploy to GitHub Pages  # Шаг 4: деплой на Pages
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4
