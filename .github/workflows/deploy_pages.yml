@@ -8,21 +8,28 @@ on:
   push:
     branches: [ main ]  # Запуск после каждого пуша в main
 
+permissions:
+  contents: read        # необходимые разрешения для GITHUB_TOKEN
+  pages: write
+  id-token: write       # для actions/deploy-pages@v4 требуется возможность запрашивать OIDC
+
 jobs:
   deploy:
-    runs-on: ubuntu-latest  # Операционная система для выполнения
+    runs-on: ubuntu-latest  # среда выполнения
 
     steps:
       - name: Checkout code  # Шаг 1: забираем код репозитория
         uses: actions/checkout@v4
 
-      - name: Configure Pages  # Шаг 2: настраиваем GitHub Pages
+      - name: Enable GitHub Pages  # Шаг 2: настраиваем GitHub Pages
         uses: actions/configure-pages@v3
+        with:
+          enablement: github-actions
 
       - name: Upload site files  # Шаг 3: загружаем статические файлы сайта в артефакт
         uses: actions/upload-pages-artifact@v3
         with:
-          path: 'public/'  # Путь к папке с вашими статическими файлами
+          path: 'public/'  # Путь к папке со статикой (при необходимости скорректируйте)
 
       - name: Deploy to GitHub Pages  # Шаг 4: деплой на Pages
         uses: actions/deploy-pages@v4
