@@ -1,0 +1,28 @@
+# Файл: .github/workflows/deploy_pages.yml
+# Этот workflow автоматически деплоит статический сайт на GitHub Pages
+# Триггер: пуш в ветку main
+
+name: Deploy Static Site to GitHub Pages
+
+on:
+  push:
+    branches: [ main ]  # Запуск после каждого пуша в main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest  # Операционная система для выполнения
+
+    steps:
+      - name: Checkout code  # Шаг 1: забираем код репозитория
+        uses: actions/checkout@v4
+
+      - name: Configure Pages  # Шаг 2: настраиваем GitHub Pages
+        uses: actions/configure-pages@v3
+
+      - name: Upload site files  # Шаг 3: загружаем статические файлы сайта в артефакт
+        uses: actions/upload-pages-artifact@v1
+        with:
+          path: 'public/'
+
+      - name: Deploy to GitHub Pages  # Шаг 4: деплой на Pages
+        uses: actions/deploy-pages@v1
